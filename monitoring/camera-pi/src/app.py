@@ -1,15 +1,24 @@
 from flask import Flask, render_template, Response, request, jsonify
-import picamera
+import picamera2
 import io
 import time
 
 app = Flask(__name__)
 
-camera = picamera.PiCamera()
-camera.resolution = (640, 480)
+
+camera = picamera2.PiCamera()
+
+pan_tilt = pantilthat.PanTilt()
 
 def move_pan_tilt(direction, amount):
-    print(f"Moving {direction} by {amount}")
+    if direction == 'left':
+        pan_tilt.pan(pan_tilt.get_pan() - amount)
+    elif direction == 'right':
+        pan_tilt.pan(pan_tilt.get_pan() + amount)
+    elif direction == 'up':
+        pan_tilt.tilt(pan_tilt.get_tilt() + amount)
+    elif direction == 'down':
+        pan_tilt.tilt(pan_tilt.get_tilt() - amount)
 
 @app.route('/control', methods=['POST'])
 def control():
@@ -25,6 +34,7 @@ def control():
     else:
         return jsonify({'error': 'Invalid action'}), 400
     return jsonify({'status': 'success'}), 200
+
 
 def gen():
     stream = io.BytesIO()
