@@ -1,7 +1,12 @@
 from flask import Flask, render_template, Response, request, jsonify
-from camera import Camera  # Assuming you have a Camera class that handles the video streaming
+import picamera
+import io
+import time
 
 app = Flask(__name__)
+
+camera = picamera.PiCamera()
+camera.resolution = (640, 480)
 
 def move_pan_tilt(direction, amount):
     print(f"Moving {direction} by {amount}")
@@ -21,15 +26,17 @@ def control():
         return jsonify({'error': 'Invalid action'}), 400
     return jsonify({'status': 'success'}), 200
 
-def gen(camera):
-    while True:
-        frame = camera.get_frame()
+def gen():
+    stream = io.BytesIO()
+    for _ in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + stream.getvalue() + b'\r\n\r\n')
+        stream.seek(0)
+        stream.truncate()
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(Camera()),
+    return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/')
