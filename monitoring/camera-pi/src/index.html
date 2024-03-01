@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pan-Tilt Control</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Pan-Tilt Control</h1>
+    <button id="pan-left">Pan Left</button>
+    <button id="pan-right">Pan Right</button>
+    <button id="tilt-up">Tilt Up</button>
+    <button id="tilt-down">Tilt Down</button>
+    <button id="start-stream">Start Stream</button>
+
+    <img id="live-stream" src="" style="display: none;">
+
+    <script>
+        function sendRequest(action) {
+            $.post("/control", { action: action }, function(data) {
+                console.log("Response: " + data);
+            });
+        }
+
+        $("#pan-left").click(function() {
+            sendRequest("pan-left");
+        });
+
+        $("#pan-right").click(function() {
+            sendRequest("pan-right");
+        });
+
+        $("#tilt-up").click(function() {
+            sendRequest("tilt-up");
+        });
+
+        $("#tilt-down").click(function() {
+            sendRequest("tilt-down");
+        });
+
+        $("#start-stream").click(function() {
+            $("#live-stream").attr("src", "/video_feed");
+            $("#live-stream").show();
+        });
+    </script>
+</body>
+</html>
