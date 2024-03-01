@@ -1,0 +1,19 @@
+version: '3'
+services:
+    camera-pi:
+        build: 
+            context: ./monitoring/camera-pi/src
+            dockerfile: ../../docker/Dockerfile
+            args:
+                REQUIREMENTS_PATH: ./requirements.txt
+        ports:
+            - "5000:5000"
+
+    sensehat:
+        build: 
+            context: ./monitoring/sensehat/src
+            dockerfile: ../../docker/Dockerfile
+            args:
+                REQUIREMENTS_PATH: ./requirements.txt
+        ports:
+            - "5001:5000"
