@@ -20,6 +20,20 @@ The Sense HAT app collects environmental data from the 3D printing space, such a
 
 Detailed instructions on how to set up the Raspberry Pis and the monitoring apps are provided in the [Setup Guide](./SETUP.md).
 
+## Build the docker images
+
+Sensehat app:
+
+```bash
+docker build -t sensehat-app --build-arg REQUIREMENTS_PATH=./requirements.txt -f docker/Dockerfile .
+```
+Camera-pi app:
+
+```bash
+docker build -t sensehat-app --build-arg REQUIREMENTS_PATH=./requirements.txt -f docker/Dockerfile .
+```
+
+
 ## Usage
 
 Instructions on how to use the monitoring system and the apps are provided in the [User Guide](./USAGE.md).
