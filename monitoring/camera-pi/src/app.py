@@ -1,12 +1,14 @@
 from flask import Flask, render_template, Response, request, jsonify
 import picamera2
 import io
+import pantilthat
 import time
 
 app = Flask(__name__)
 
 
-camera = picamera2.PiCamera()
+
+camera = picamera2.Picamera2()
 
 pan_tilt = pantilthat.PanTilt()
 
