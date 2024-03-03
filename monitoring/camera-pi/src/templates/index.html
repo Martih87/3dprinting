@@ -4,74 +4,89 @@
     <title>Pan-Tilt Control</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
+     body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
 
-        h1 {
-            margin-bottom: 50px;
-        }
+h1 {
+    margin-bottom: 50px;
+}
 
-        .controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
-            gap: 10px;
-            width: 300px;
-            height: 300px;
-        }
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    gap: 10px;
+    width: 800px;
+    height: 800px;
+    margin-bottom: 20px; /* Add margin to the bottom of the controls */
+}
 
-        .controls #tilt-up {
-            grid-column: 2;
-            grid-row: 1;
-        }
+.controls > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .controls #pan-left {
-            grid-column: 1;
-            grid-row: 2;
-        }
+button {
+    padding: 20px 40px; /* Make all buttons the same size as the "Start Stream" button */
+    font-size: 16px;
+    border: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    color: white;
+    background-color: #007BFF;
+    cursor: pointer;
+}
 
-        .controls #live-stream {
-            grid-column: 2;
-            grid-row: 2;
-        }
+button:hover {
+    background-color: #0056b3;
+}
 
-        .controls #pan-right {
-            grid-column: 3;
-            grid-row: 2;
-        }
+.controls #tilt-up {
+    grid-column: 2;
+    grid-row: 1;
+}
 
-        .controls #tilt-down {
-            grid-column: 2;
-            grid-row: 3;
-        }
+.controls #pan-left {
+    grid-column: 1;
+    grid-row: 2;
+}
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            background-color: #007BFF;
-            cursor: pointer;
-        }
+.controls #live-stream {
+    grid-column: 2;
+    grid-row: 2;
+}
 
-        button:hover {
-            background-color: #0056b3;
-        }
+.controls #pan-right {
+    grid-column: 3;
+    grid-row: 2;
+}
 
-        #live-stream {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.controls #tilt-down {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.controls #start-stream {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+#live-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
     </style>
 </head>
 <body>
