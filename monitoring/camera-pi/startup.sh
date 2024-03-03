@@ -3,6 +3,7 @@
 # navigate to home directory, then to this directory, then execute python script, then back home
 
 cd /
-cd home/pi/monitoring/camera-pi/src
+cd ~projects/3dprinting/monitoring/camera-pi/src
+sudo python cleanup.py
 sudo python app.py
 cd /
