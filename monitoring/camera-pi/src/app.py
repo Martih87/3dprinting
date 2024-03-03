@@ -49,6 +49,10 @@ def video_feed():
     return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/health')
+def health():
+    return jsonify({'status': 'healthy'}), 200
+
 @app.route('/')
 def index():
     return render_template('index.html')
