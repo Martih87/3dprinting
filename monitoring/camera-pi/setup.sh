@@ -10,4 +10,4 @@ sudo apt-get install -y pip git vim
 
 
 # Install Python dependencies
-pip install -r requirements.txt
+# pip install -r requirements.txt

@@ -1,15 +1,12 @@
 from flask import Flask, render_template, Response, request, jsonify
-import picamera2
+import picamera
 import io
 import pantilthat
 import time
 
 app = Flask(__name__)
 
-
-
-camera = picamera2.Picamera2()
-
+camera = picamera.PiCamera()
 pan_tilt = pantilthat.PanTilt()
 
 def move_pan_tilt(direction, amount):
@@ -37,14 +34,15 @@ def control():
         return jsonify({'error': 'Invalid action'}), 400
     return jsonify({'status': 'success'}), 200
 
-
 def gen():
     stream = io.BytesIO()
-    for _ in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
+    while True:
+        camera.capture(stream, 'jpeg')
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + stream.getvalue() + b'\r\n\r\n')
         stream.seek(0)
         stream.truncate()
+        time.sleep(5)  # pause for 5 seconds
 
 @app.route('/video_feed')
 def video_feed():
