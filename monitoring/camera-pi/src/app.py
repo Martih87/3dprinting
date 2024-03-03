@@ -7,6 +7,7 @@ import time
 app = Flask(__name__)
 
 camera = picamera.PiCamera()
+camera.resolution = (640, 640)
 pan_tilt = pantilthat.PanTilt()
 
 def move_pan_tilt(direction, amount):
@@ -42,7 +43,6 @@ def gen():
                b'Content-Type: image/jpeg\r\n\r\n' + stream.getvalue() + b'\r\n\r\n')
         stream.seek(0)
         stream.truncate()
-        time.sleep(5)  # pause for 5 seconds
 
 @app.route('/video_feed')
 def video_feed():
@@ -54,4 +54,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=False)
