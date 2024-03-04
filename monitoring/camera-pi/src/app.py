@@ -16,9 +16,9 @@ def move_pan_tilt(direction, amount):
     elif direction == 'right':
         pan_tilt.pan(pan_tilt.get_pan() + amount)
     elif direction == 'up':
-        pan_tilt.tilt(pan_tilt.get_tilt() + amount)
-    elif direction == 'down':
         pan_tilt.tilt(pan_tilt.get_tilt() - amount)
+    elif direction == 'down':
+        pan_tilt.tilt(pan_tilt.get_tilt() + amount)
 
 @app.route('/control', methods=['POST'])
 def control():
